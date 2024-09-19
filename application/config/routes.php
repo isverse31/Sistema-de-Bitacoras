@@ -57,7 +57,7 @@ $route['camaras'] = 'camaras/index';
 $route['camaras/agregar'] = 'camaras/agregar';
 $route['listas'] = 'bitacora/lista';
 $route['bitacora/descargar_pdf/(:num)'] = 'bitacora/descargar_pdf/$1';
-$route['bitacora/guardar_edicion'] = 'bitacora/guardar_edicion';
+$route['bitacora/editar/(:num)'] = 'bitacora/editar/$1';
 $route['translate_uri_dashes'] = FALSE;
 
 

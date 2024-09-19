@@ -134,5 +134,76 @@ class Bitacora extends CI_Controller {
         // Cerrar y generar el PDF
         $pdf->Output('Bitacora_CTPAT_' . $id . '.pdf', 'D');
     }
+
+    public function editar($id) {
+        // Verificar que el ID es un número válido
+        if (!is_numeric($id)) {
+            show_error('ID de bitácora inválido.', 400);
+            return;
+        }
+    
+        // Si el formulario ha sido enviado
+        if ($this->input->post()) {
+            // Reglas de validación del formulario
+            $this->form_validation->set_rules('fecha', 'Fecha', 'required');
+            $this->form_validation->set_rules('grabando_video', '¿Está grabando video?', 'required');
+            $this->form_validation->set_rules('almacena_dias', '¿Almacena días de video?', 'required');
+            
+            if ($this->form_validation->run() === FALSE) {
+                // Si la validación falla, se vuelve a cargar el formulario con los datos actuales
+                $data['bitacora'] = $this->Bitacora_model->get_bitacora_details($id);
+                $data['camaras'] = $this->Bitacora_model->get_all_camaras();
+                $data['contenido'] = 'bitacora/editar';
+                $this->load->view('sidebar_menu', $data);
+            } else {
+                // Recoger los datos actualizados de la bitácora
+                $bitacora_data = array(
+                    'fecha' => $this->input->post('fecha'),
+                    'grabando_video' => $this->input->post('grabando_video'),
+                    'dias_video' => $this->input->post('dias_video'),
+                    'almacena_dias' => $this->input->post('almacena_dias'),
+                    'comentario' => $this->input->post('comentario')
+                );
+        
+                // Iniciar transacción
+                $this->db->trans_start();
+                $this->Bitacora_model->update_bitacora($id, $bitacora_data);
+        
+                // Procesar los estados de las cámaras y las observaciones
+                $estados = $this->input->post('estado');
+                $observaciones = $this->input->post('observaciones');
+        
+                foreach ($estados as $camara_id => $estado) {
+                    $detalle_data = array(
+                        'sin_alimentacion' => in_array('sin_alimentacion', $estado) ? 1 : 0,
+                        'imagen_borrosa' => in_array('imagen_borrosa', $estado) ? 1 : 0,
+                        'obstruida' => in_array('obstruida', $estado) ? 1 : 0,
+                        'frente_al_suelo' => in_array('frente_al_suelo', $estado) ? 1 : 0,
+                        'mala_iluminacion' => in_array('mala_iluminacion', $estado) ? 1 : 0,
+                        'observaciones' => isset($observaciones[$camara_id]) ? $observaciones[$camara_id] : null
+                    );
+                    $this->Bitacora_model->update_bitacora_detalle($id, $camara_id, $detalle_data);
+                }
+        
+                // Completar la transacción
+                $this->db->trans_complete();
+        
+                if ($this->db->trans_status() === FALSE) {
+                    $this->session->set_flashdata('error', 'Hubo un error al actualizar la bitácora.');
+                } else {
+                    $this->session->set_flashdata('success', 'Bitácora actualizada correctamente.');
+                }
+                redirect('bitacora/lista');
+            }
+        } else {
+            // Si no se ha enviado el formulario, cargar la vista de edición con los datos actuales
+            $data['bitacora'] = $this->Bitacora_model->get_bitacora_details($id);
+            $data['camaras'] = $this->Bitacora_model->get_all_camaras();
+            $data['contenido'] = 'bitacora/editar';
+            $this->load->view('sidebar_menu', $data);
+        }
+    }
+
+    
 }
 ?>

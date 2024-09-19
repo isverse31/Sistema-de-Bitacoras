@@ -113,6 +113,7 @@
             <p><strong>Comentarios:</strong> <?php echo $bitacora[0]['comentario']; ?></p>
 
             <a href="<?php echo site_url('bitacora/descargar_pdf/'.$bitacora[0]['id']); ?>" class="btn">Descargar PDF</a>
+            <a href="<?php echo site_url('bitacora/editar/'.$bitacora[0]['id']); ?>" class="btn btn-edit">Editar</a>
         <?php else: ?>
             <p>No se encontraron detalles de la bitácora.</p>
         <?php endif; ?>

@@ -98,7 +98,7 @@
                     </tr>
                 </tbody>
             </table>
-        <?php endforeach; ?>g
+        <?php endforeach; ?>
     <?php else: ?>
         <p>No se encontraron detalles de la bitácora.</p>
     <?php endif; ?>

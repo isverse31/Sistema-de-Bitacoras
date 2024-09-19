@@ -48,6 +48,16 @@ class Bitacora_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function update_bitacora($id, $data) {
+        $this->db->where('id', $id);
+        return $this->db->update('bitacoras', $data);
+    }
+    
+    public function update_bitacora_detalle($bitacora_id, $camara_id, $data) {
+        $this->db->where('bitacora_id', $bitacora_id);
+        $this->db->where('camara_id', $camara_id);
+        return $this->db->update('bitacora_detalles', $data);
+    }
     
 }
 
