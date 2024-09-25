@@ -50,22 +50,27 @@
 
     <!-- Encabezado -->
     <table class="header-table">
-        <tr>
-            <td rowspan="2" style="width: 35%;"><br>
-                <img src="<?php echo FCPATH . 'assets/images/logoketer.png'; ?>" alt="Mi Imagen">
-            </td>
-            <td class="header-center" style="width: 25%;">
-                Physical
-            </td>
-            <td class="header-right" style="width: 20%">
+    <tr>
+        <td rowspan="2" style="width: 35%;"><br>
+            <img src="<?php echo FCPATH . 'assets/images/logoketer.png'; ?>" alt="Mi Imagen">
+        </td>
+        <td class="header-center" style="width: 25%;">
+            Physical
+        </td>
+        <td class="header-right" style="width: 20%">
             <p>Number: 
-                PRO-CTPAT-22-7</p>
-            </td>
-            <td class="header-right" style="width: 20%;">
-                <p>Date: <?php echo $bitacora[0]['fecha']; ?></p>
-            </td>
-        </tr>
-    </table>
+                PRO-CTPAT-<?php 
+                // Formatear la fecha
+                $fechaOriginal = $bitacora[0]['fecha'];
+                $timestamp = strtotime($fechaOriginal);
+                echo date('y-m', $timestamp); 
+            ?></p>
+        </td>
+        <td class="header-right" style="width: 20%;">
+            <p>Date: <?php echo $bitacora[0]['fecha']; ?></p>
+        </td>
+    </tr>
+</table>
 
     <p><strong>Fecha:</strong> <?php echo $bitacora[0]['fecha']; ?></p>
     <p><strong>¿El sistema está grabando video?:</strong> <?php echo $bitacora[0]['grabando_video'] ? 'Sí' : 'No'; ?></p>

@@ -98,10 +98,27 @@
             border-radius: 5px;
             font-size: 14px;
             text-align: center;
+            margin: 5px 0;
         }
 
         .actions a:hover {
             background-color: #004080;
+        }
+
+        /* Ajuste para el botón de Descargar PDF */
+        .download-btn {
+            margin-top: 10px;
+            background-color: #004080;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .download-btn:hover {
+            background-color: #006699;
         }
     </style>
 </head>
@@ -120,7 +137,7 @@
         <?php foreach ($bitacoras as $bitacora): ?>
         <tr>
             <td><?php echo date('d/m/Y', strtotime($bitacora['fecha'])); ?></td>
-            <td><?php echo $bitacora['grabando_video']; ?></td>
+            <td><?php echo $bitacora['grabando_video'] === 'Si' ? 'Sí' : 'No'; ?></td> <!-- Ajustado para mostrar "Sí" o "No" -->
             <td><?php echo $bitacora['dias_video']; ?></td>
             <td><?php echo htmlspecialchars($bitacora['comentario']); ?></td>
             <td class="action-buttons">
@@ -131,11 +148,24 @@
                     <a href="<?php echo site_url('bitacora/eliminar/'.$bitacora['id']); ?>"
                         onclick="return confirm('¿Estás seguro de que quieres eliminar esta bitácora?');">Eliminar</a>
                 </div>
-                <a href="<?php echo site_url('bitacora/descargar_pdf/'.$bitacora['id']); ?>">Descargar PDF</a>
+                <a href="<?php echo site_url('bitacora/descargar_pdf/'.$bitacora['id']); ?>" class="download-btn">Descargar PDF</a> <!-- Ajuste para el botón de Descargar PDF -->
             </td>
         </tr>
         <?php endforeach; ?>
     </table>
+
+    <?php if ($this->session->flashdata('success')): ?>
+    <div class="alert alert-success">
+        <?php echo $this->session->flashdata('success'); ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?php echo $this->session->flashdata('error'); ?>
+    </div>
+<?php endif; ?>
+
 
     <script>
         function toggleActions(id) {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,38 +13,49 @@
             background-color: #f4f4f4;
             color: #333;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
             background-color: #fff;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            color: #004080;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
+            border-bottom: 2px solid #004080;
+            padding-bottom: 10px;
         }
-        label {
-            display: block;
-            margin: 10px 0 5px;
+
+        .header img {
+            width: 100px;
         }
-        input[type="text"], input[type="date"], select, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+
+        .header-right {
+            text-align: right;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
         .btn {
             display: inline-block;
             padding: 10px 20px;
@@ -52,68 +64,120 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
-            border: none;
-            cursor: pointer;
+            margin-top: 20px;
         }
+
         .btn:hover {
             background-color: #006699;
         }
+
+        .btn-save {
+            background-color: #28a745;
+        }
+
+        .btn-save:hover {
+            background-color: #218838;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Editar Bitácora CTPAT</h1>
-        <?php echo form_open('bitacora/editar/'.$bitacora[0]['id']); ?>
-        
-        <label for="fecha">Fecha:</label>
-        <input type="date" name="fecha" id="fecha" value="<?php echo $bitacora[0]['fecha']; ?>" required>
+        <div class="header">
+            <img src="https://ketermex.com/img/logoketer.png" alt="Keter">
+            <div class="header-right">
+                <p><strong>Physical</strong></p>
+                <p>Number: PRO-CT PAT-<?php echo $bitacora['fecha']; ?></p>
+                <p>Page: 1 of 2</p>
+                <p>Date: <?php echo $bitacora['fecha']; ?></p>
+            </div>
+        </div>
 
-        <label for="grabando_video">¿Está grabando video?</label>
-        <select name="grabando_video" id="grabando_video" required>
-            <option value="1" <?php echo $bitacora[0]['grabando_video'] ? 'selected' : ''; ?>>Sí</option>
-            <option value="0" <?php echo !$bitacora[0]['grabando_video'] ? 'selected' : ''; ?>>No</option>
-        </select>
+        <!-- Formulario de edición de bitácora -->
+        <form action="<?php echo site_url('bitacora/actualizar/' . $bitacora['id']); ?>" method="post">
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" name="fecha" id="fecha" value="<?php echo $bitacora['fecha']; ?>" required>
+            </div>
 
-        <label for="dias_video">Días de video almacenados:</label>
-        <input type="number" name="dias_video" id="dias_video" value="<?php echo $bitacora[0]['dias_video']; ?>" required>
+            <div class="form-group">
+                <label>¿El sistema está grabando video?</label>
+                <label><input type="radio" name="grabando_video" value="Si" <?php echo $bitacora['grabando_video'] === 'Si' ? 'checked' : ''; ?>> Sí</label>
+                <label><input type="radio" name="grabando_video" value="No" <?php echo $bitacora['grabando_video'] === 'No' ? 'checked' : ''; ?>> No</label>
+            </div>
 
-        <label for="almacena_dias">¿Almacena días de video?</label>
-        <select name="almacena_dias" id="almacena_dias" required>
-            <option value="1" <?php echo $bitacora[0]['almacena_dias'] ? 'selected' : ''; ?>>Sí</option>
-            <option value="0" <?php echo !$bitacora[0]['almacena_dias'] ? 'selected' : ''; ?>>No</option>
-        </select>
+            <div class="form-group">
+                <label>¿El sistema almacena al menos <input type="number" name="dias_video" value="<?php echo $bitacora['dias_video']; ?>"> días de video?</label>
+                <label><input type="radio" name="almacena_dias" value="Si" <?php echo $bitacora['almacena_dias'] === 'Si' ? 'checked' : ''; ?>> Sí</label>
+                <label><input type="radio" name="almacena_dias" value="No" <?php echo $bitacora['almacena_dias'] === 'No' ? 'checked' : ''; ?>> No</label>
+            </div>
 
-        
+            <table>
+    <tr>
+        <th>Cámara</th>
+        <th>Sin alimentación</th>
+        <th>Imagen borrosa</th>
+        <th>Obstruida</th>
+        <th>Frente al suelo</th>
+        <th>Mala iluminación</th>
+        <th>Observaciones</th>
+    </tr>
+    <?php foreach ($bitacora_detalles as $detalle) : ?>
+    <tr>
+        <td>Cámara <?php echo $detalle['camara_id']; ?></td>
+        <td><input type="checkbox" name="detalles[<?php echo $detalle['id']; ?>][sin_alimentacion]" <?php echo $detalle['sin_alimentacion'] ? 'checked' : ''; ?>></td>
+        <td><input type="checkbox" name="detalles[<?php echo $detalle['id']; ?>][imagen_borrosa]" <?php echo $detalle['imagen_borrosa'] ? 'checked' : ''; ?>></td>
+        <td><input type="checkbox" name="detalles[<?php echo $detalle['id']; ?>][obstruida]" <?php echo $detalle['obstruida'] ? 'checked' : ''; ?>></td>
+        <td><input type="checkbox" name="detalles[<?php echo $detalle['id']; ?>][frente_al_suelo]" <?php echo $detalle['frente_al_suelo'] ? 'checked' : ''; ?>></td>
+        <td><input type="checkbox" name="detalles[<?php echo $detalle['id']; ?>][mala_iluminacion]" <?php echo $detalle['mala_iluminacion'] ? 'checked' : ''; ?>></td>
+        <td><input type="text" name="detalles[<?php echo $detalle['id']; ?>][observaciones]" value="<?php echo $detalle['observaciones']; ?>"></td>
+    </tr>
+<?php endforeach; ?>
 
-        <h2>Detalles de las Cámaras</h2>
-        <table>
-            <tr>
-                <th>Cámara</th>
-                <th>Sin alimentación</th>
-                <th>Imagen borrosa</th>
-                <th>Obstruida</th>
-                <th>Frente al suelo</th>
-                <th>Mala iluminación</th>
-                <th>Observaciones</th>
-            </tr>
-            <?php foreach ($bitacora as $index => $detalle): ?>
-            <tr>
-                <td>Cámara <?php echo $index + 1; ?></td>
-                <td><input type="checkbox" name="estado[<?php echo $detalle['camara_id']; ?>][]" value="sin_alimentacion" <?php echo $detalle['sin_alimentacion'] ? 'checked' : ''; ?>></td>
-                <td><input type="checkbox" name="estado[<?php echo $detalle['camara_id']; ?>][]" value="imagen_borrosa" <?php echo $detalle['imagen_borrosa'] ? 'checked' : ''; ?>></td>
-                <td><input type="checkbox" name="estado[<?php echo $detalle['camara_id']; ?>][]" value="obstruida" <?php echo $detalle['obstruida'] ? 'checked' : ''; ?>></td>
-                <td><input type="checkbox" name="estado[<?php echo $detalle['camara_id']; ?>][]" value="frente_al_suelo" <?php echo $detalle['frente_al_suelo'] ? 'checked' : ''; ?>></td>
-                <td><input type="checkbox" name="estado[<?php echo $detalle['camara_id']; ?>][]" value="mala_iluminacion" <?php echo $detalle['mala_iluminacion'] ? 'checked' : ''; ?>></td>
-                <td><input type="text" name="observaciones[<?php echo $detalle['camara_id']; ?>]" value="<?php echo htmlspecialchars($detalle['observaciones']); ?>"></td>
-            </tr>
-            <?php endforeach; ?><br>
-        </table>
+</table>
 
 
-        <label for="comentario">Comentarios:</label>
-        <textarea name="comentario" id="comentario" rows="4"><?php echo htmlspecialchars($bitacora[0]['comentario']); ?></textarea>
-        <button type="submit" class="btn">Guardar Cambios</button>
-        <?php echo form_close(); ?>
+            <div class="form-group">
+                <label for="comentario">Comentarios</label>
+                <textarea name="comentario" id="comentario" rows="4"><?php echo $bitacora['comentario']; ?></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-save">Guardar Cambios</button>
+        </form>
     </div>
+
+    <script>
+    window.onload = function() {
+        history.replaceState(null, null, window.location.href);
+    };
+</script>
 </body>
+
 </html>

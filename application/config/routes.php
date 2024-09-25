@@ -51,13 +51,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'bitacora';
 $route['bitacora'] = 'bitacora/index'; // Muestra el formulario
-$route['bitacora/guardar'] = 'bitacora/guardar'; // Ruta para guardar
+$route['bitacora/guardar'] = 'bitacora/guardar'; // para guardar
 $route['404_override'] = '';
 $route['camaras'] = 'camaras/index';
 $route['camaras/agregar'] = 'camaras/agregar';
 $route['listas'] = 'bitacora/lista';
 $route['bitacora/descargar_pdf/(:num)'] = 'bitacora/descargar_pdf/$1';
 $route['bitacora/editar/(:num)'] = 'bitacora/editar/$1';
+$route['bitacora/actualizar/(:num)'] = 'bitacora/actualizar/$1';
+$route['bitacora/detalles/(:num)'] = 'bitacora/detalles/$1';
 $route['translate_uri_dashes'] = FALSE;
 
 
