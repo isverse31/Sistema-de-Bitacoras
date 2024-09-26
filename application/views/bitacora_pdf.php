@@ -85,7 +85,7 @@
                 <p>Date: <?php 
                     $fechaOriginal = $bitacora[0]['fecha'];
                     $timestamp = strtotime($fechaOriginal);
-                    echo date('d-m-y', $timestamp); 
+                    echo date('m-d-y', $timestamp); 
                 ?></p>
             </td>
         </tr>
@@ -94,7 +94,7 @@
     <p><strong>Fecha:</strong> <?php 
         $fechaOriginal = $bitacora[0]['fecha'];
         $timestamp = strtotime($fechaOriginal);
-        echo date('d-m-y', $timestamp); 
+        echo date('m-d-y', $timestamp); 
     ?></p>
 
     <p><strong>¿El sistema está grabando video?:</strong> <?php echo $bitacora[0]['grabando_video']; ?></p>
