@@ -62,11 +62,9 @@ class Bitacora extends CI_Controller {
             $this->db->insert('bitacoras', $bitacora_data);
             $bitacora_id = $this->db->insert_id();
     
-            // Procesar los estados de las cámaras y las observaciones
             $estados = $this->input->post('estado');
             $observaciones = $this->input->post('observaciones'); 
             
-            // Verificar que existan cámaras y sus estados
             if ($estados) {
                 foreach ($estados as $camara_id => $estado) {
                     $detalle_data = array(

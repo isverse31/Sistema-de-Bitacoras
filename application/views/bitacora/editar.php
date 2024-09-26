@@ -105,6 +105,13 @@
         .form-group input[type="checkbox"] {
             margin-right: 5px;
         }
+        .btn-cancel {
+            background-color: #dc3545;
+        }
+
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 
@@ -169,7 +176,11 @@
                 <textarea name="comentario" id="comentario" rows="4"><?php echo $bitacora['comentario']; ?></textarea>
             </div>
 
-            <button type="submit" class="btn btn-save">Guardar Cambios</button>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-save">Guardar Cambios</button>
+                <a href="<?php echo site_url('bitacora/detalles/'.$bitacora['id']); ?>" class="btn btn-cancel">Cancelar</a>
+            </div>
+            
         </form>
     </div>
 

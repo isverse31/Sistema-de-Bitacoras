@@ -131,7 +131,7 @@
 
     <div class="form-group">
         <label>¿El sistema almacena al menos
-            <input type="number" name="dias_video" style="width: 50px;" min="0"> días de video?</label>
+            <input type="number" name="dias_video" style="width: 80px;" min="0"> días de video?</label>
         <label><input type="radio" name="almacena_dias" value="Si" required> Sí</label>
         <label><input type="radio" name="almacena_dias" value="No"> No</label>
     </div>

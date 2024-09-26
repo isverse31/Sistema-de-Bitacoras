@@ -75,6 +75,14 @@
             background-color: #FFA500;
         }
 
+        .btn-regr {
+            background-color: gray;
+        }
+
+        .btn-regr:hover{
+            background-color: black;
+        }
+
         .btn-edit:hover {
             background-color: #FF8C00;
         }
@@ -142,6 +150,7 @@
             <a href="<?php echo site_url('bitacora/descargar_pdf/' . $bitacora['id']); ?>" class="btn">Descargar PDF</a>
             <!-- Botón de Editar que redirige al formulario de edición -->
             <a href="<?php echo site_url('bitacora/editar/' . $bitacora['id']); ?>" class="btn btn-edit">Editar</a>
+            <a href="<?php echo site_url('bitacora/lista/') ?>" class="btn btn-regr">Regresar</a>
         <?php } else { ?>
             <p>No se encontraron detalles de la bitácora.</p>
         <?php } ?>

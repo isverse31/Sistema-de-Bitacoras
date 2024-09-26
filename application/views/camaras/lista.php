@@ -510,6 +510,11 @@
         }
     }
     </script>
+    <script>
+        <?php if (isset($error)): ?>
+            alert('<?php echo addslashes($error); ?>');
+        <?php endif; ?>
+    </script>
 
 </body>
 

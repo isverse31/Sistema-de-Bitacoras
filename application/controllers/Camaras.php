@@ -41,7 +41,7 @@ class Camaras extends CI_Controller {
     
             // Configuración para la subida de imágenes
             $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|jfif';
             $config['max_size'] = 2048; // 2MB
             $config['encrypt_name'] = TRUE;
     
@@ -53,7 +53,7 @@ class Camaras extends CI_Controller {
                     $data['imagen'] = $upload_data['file_name'];
                 } else {
                     $error = array('error' => $this->upload->display_errors());
-                    $this->load->view('camaras/agregar', $error);
+                    $this->load->view('camaras/lista', $error);
                     return;
                 }
             }
@@ -61,9 +61,11 @@ class Camaras extends CI_Controller {
             if ($this->camara_model->agregar_camara($data)) {
                 redirect('camaras'); // Redirige a la lista de cámaras después de guardar
             } else {
-                $this->load->view('camaras/agregar', array('error' => 'No se pudo guardar la cámara'));
+                $this->load->view('camaras/lista', array('error' => 'No se pudo guardar la cámara'));
             }
+            
         }
+        
     }
     public function editar($id) {
         $data['camara'] = $this->camara_model->get_camara($id);
@@ -92,7 +94,7 @@ class Camaras extends CI_Controller {
             
             if (!empty($_FILES['imagen']['name'])) {
                 $config['upload_path'] = './uploads/';
-                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|jfif';
                 $config['max_size'] = 2048;
                 $config['encrypt_name'] = TRUE;
                 
@@ -112,7 +114,7 @@ class Camaras extends CI_Controller {
             if ($this->camara_model->actualizar_camara($id, $data)) {
                 redirect('camaras');
             } else {
-                $this->load->view('camaras/editar', $data);
+                $this->load->view('camaras', $data);
             }
         }
     }
@@ -134,4 +136,5 @@ class Camaras extends CI_Controller {
             show_error('No se pudo eliminar la cámara');
         }
     }
+    
 }
