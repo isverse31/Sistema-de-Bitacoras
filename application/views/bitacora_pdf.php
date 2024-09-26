@@ -67,12 +67,24 @@
             ?></p>
         </td>
         <td class="header-right" style="width: 20%;">
-            <p>Date: <?php echo $bitacora[0]['fecha']; ?></p>
+            <p>Date: <?php 
+                // Formatear la fecha
+                $fechaOriginal = $bitacora[0]['fecha'];
+                $timestamp = strtotime($fechaOriginal);
+                echo date('d-m-y', $timestamp); 
+            ?></p>
+                
+            
         </td>
     </tr>
 </table>
 
-    <p><strong>Fecha:</strong> <?php echo $bitacora[0]['fecha']; ?></p>
+    <p><strong>Fecha:</strong> <?php 
+                // Formatear la fecha
+                $fechaOriginal = $bitacora[0]['fecha'];
+                $timestamp = strtotime($fechaOriginal);
+                echo date('d-m-y', $timestamp); 
+            ?></p>
     <p><strong>¿El sistema está grabando video?:</strong> <?php echo $bitacora[0]['grabando_video'] ? 'Sí' : 'No'; ?></p>
     <p><strong>¿Almacena al menos <?php echo $bitacora[0]['dias_video']; ?> días de video?:</strong> <?php echo $bitacora[0]['almacena_dias'] ? 'Sí' : 'No'; ?></p>
 
