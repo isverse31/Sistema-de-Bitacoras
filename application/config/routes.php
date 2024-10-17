@@ -56,10 +56,15 @@ $route['404_override'] = '';
 $route['camaras'] = 'camaras/index';
 $route['camaras/agregar'] = 'camaras/agregar';
 $route['listas'] = 'bitacora/lista';
+$route['listas'] = 'redes/lista';
 $route['bitacora/descargar_pdf/(:num)'] = 'bitacora/descargar_pdf/$1';
 $route['bitacora/editar/(:num)'] = 'bitacora/editar/$1';
 $route['bitacora/actualizar/(:num)'] = 'bitacora/actualizar/$1';
 $route['bitacora/detalles/(:num)'] = 'bitacora/detalles/$1';
+$route['redes/nueva_bitacora'] = 'redes/nueva_bitacora';
+$route['redes/editar/(:num)'] = 'redes/editar/$1';  // Ruta para editar una bitácora específica (con ID)
+$route['redes/eliminar/(:num)'] = 'redes/eliminar/$1';  // Ruta para eliminar una bitácora específica (con ID)
+$route['redes/detalles/(:num)'] = 'redes/detalles/$1';
 $route['translate_uri_dashes'] = FALSE;
 
 

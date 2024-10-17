@@ -45,6 +45,9 @@
     <a href="<?php echo site_url('bitacora/'); ?>">Nueva Bitácora</a>
     <a href="<?php echo site_url('bitacora/lista'); ?>">Ver Bitácoras</a>
     <a href="<?php echo site_url('camaras/'); ?>">Cámaras</a>
+    <a href="<?= base_url('index.php/redes/nueva_bitacora') ?>">Nueva Bitácora de Redes</a>
+    <a href="<?= base_url('index.php/redes/lista') ?>">Ver lista de bitácoras de redes</a>
+
 </div>
 
 <div class="content">

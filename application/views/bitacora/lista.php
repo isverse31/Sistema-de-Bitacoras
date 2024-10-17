@@ -17,17 +17,7 @@
             color: #004080;
         }
 
-        a {
-            display: inline-block;
-            margin: 10px 0;
-            padding: 10px 15px;
-            background-color: #004080;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-align: center;
-        }
+        
 
         a:hover {
             background-color: #006699;
