@@ -139,9 +139,9 @@
         <?php echo isset($bitacora[0]['comentario']) ? $bitacora[0]['comentario'] : 'No hay comentarios'; ?></p><br>
 
     <p><strong>Completado por:</strong></p>
-    <p>Nombre: ________________________</p>
-    <p>Cargo: _________________________</p>
-    <p>Firma: _________________________</p>
+    <p>Nombre: ________________________________________</p>
+    <p>Cargo: _________________________________________</p>
+    <p>Firma: _________________________________________</p>
 
 </body>
 

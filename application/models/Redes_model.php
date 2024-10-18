@@ -34,4 +34,15 @@ class Redes_model extends CI_Model {
         $this->db->where('id', $id);
         return $this->db->delete('bitacora_redes');
     }
+
+    // Método para guardar una nueva bitácora
+    public function guardar($data) {
+        return $this->db->insert('bitacora_redes', $data);
+    }
+
+    // Método para actualizar una bitácora existente
+    public function actualizar($id, $data) {
+        $this->db->where('id', $id);
+        return $this->db->update('bitacora_redes', $data);
+    }
 }

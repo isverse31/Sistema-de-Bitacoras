@@ -1,51 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Bitácoras CTPAT</title>
     <style>
+        :root {
+            --primary-color: #004080;
+            --secondary-color: #006699;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         h1 {
             text-align: center;
-            color: #004080;
+            color: var(--primary-color);
+            margin-bottom: 30px;
         }
 
-        
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
 
-        a:hover {
-            background-color: #006699;
+        .btn:hover {
+            background-color: var(--primary-color);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 12px;
+        th, td {
+            padding: 12px 15px;
             text-align: left;
+            border-bottom: 1px solid #ddd;
         }
 
         th {
-            background-color: #004080;
-            color: #fff;
+            background-color: var(--primary-color);
+            color: white;
             text-transform: uppercase;
+            font-weight: bold;
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #f8f8f8;
         }
 
         tr:hover {
@@ -53,132 +79,160 @@
         }
 
         .action-buttons {
-            position: relative; /* Para el posicionamiento del dropdown */
+            display: flex;
+            gap: 10px;
         }
 
-        .action-buttons button {
-            background-color: #006699;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .dropdown {
+            position: relative;
+            display: inline-block;
         }
 
-        .action-buttons button:hover {
-            background-color: #004080;
-        }
-
-        .actions {
+        .dropdown-content {
             display: none;
-            position: absolute; /* Para posicionar el dropdown */
-            background-color: #fff;
-            border: 1px solid #ddd;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
             border-radius: 5px;
-            margin-top: 5px;
-            z-index: 10; /* Asegura que aparezca encima de otros elementos */
         }
 
-        .actions a {
-            display: block; /* Para que los enlaces ocupen toda la fila */
-            padding: 8px 12px;
-            background-color: #006699;
-            color: white;
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
-            text-align: center;
-            margin: 5px 0;
+            display: block;
         }
 
-        .actions a:hover {
-            background-color: #004080;
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
         }
 
-        /* Ajuste para el botón de Descargar PDF */
-        .download-btn {
-            margin-top: 10px;
-            background-color: #004080;
-            color: white;
-            padding: 8px 12px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-align: center;
+        .show {
+            display: block;
         }
 
-        .download-btn:hover {
-            background-color: #006699;
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin-bottom: 15px;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                content: attr(data-label);
+                font-weight: bold;
+            }
         }
     </style>
 </head>
-
 <body>
-    <h1>Lista de Bitácoras CTPAT</h1>
-    <a href="<?php echo site_url('bitacora/'); ?>">Crear Nueva Bitácora</a>
-    <table>
-        <tr>
-            <th>Fecha</th>
-            <th>Grabando Video</th>
-            <th>Días de Video</th>
-            <th>Comentarios</th>
-            <th>Acciones</th>
-        </tr>
-        <?php foreach ($bitacoras as $bitacora): ?>
-        <tr>
-            <td><?php echo date('d/m/Y', strtotime($bitacora['fecha'])); ?></td>
-            <td><?php echo $bitacora['grabando_video'] === 'Si' ? 'Sí' : 'No'; ?></td> <!-- Ajustado para mostrar "Sí" o "No" -->
-            <td><?php echo $bitacora['dias_video']; ?></td>
-            <td><?php echo htmlspecialchars($bitacora['comentario']); ?></td>
-            <td class="action-buttons">
-                <button onclick="toggleActions(<?php echo $bitacora['id']; ?>)">Acciones</button>
-                <div id="actions-<?php echo $bitacora['id']; ?>" class="actions">
-                    <a href="<?php echo site_url('bitacora/detalles/'.$bitacora['id']); ?>">Ver Detalles</a>
-                    <a href="<?php echo site_url('bitacora/editar/'.$bitacora['id']); ?>">Editar</a>
-                    <a href="<?php echo site_url('bitacora/eliminar/'.$bitacora['id']); ?>"
-                        onclick="return confirm('¿Estás seguro de que quieres eliminar esta bitácora?');">Eliminar</a>
-                </div>
-                <a href="<?php echo site_url('bitacora/descargar_pdf/'.$bitacora['id']); ?>" class="download-btn">Descargar PDF</a> <!-- Ajuste para el botón de Descargar PDF -->
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
+    <div class="container">
+        <h1>Lista de Bitácoras CTPAT</h1>
+        <a href="<?php echo site_url('bitacora/'); ?>" class="btn">Crear Nueva Bitácora</a>
+        
+        <?php if ($this->session->flashdata('success')): ?>
+            <div class="alert alert-success">
+                <?php echo $this->session->flashdata('success'); ?>
+            </div>
+        <?php endif; ?>
 
-    <?php if ($this->session->flashdata('success')): ?>
-    <div class="alert alert-success">
-        <?php echo $this->session->flashdata('success'); ?>
+        <?php if ($this->session->flashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?php echo $this->session->flashdata('error'); ?>
+            </div>
+        <?php endif; ?>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Grabando Video</th>
+                    <th>Días de Video</th>
+                    <th>Comentarios</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($bitacoras as $bitacora): ?>
+                <tr>
+                    <td data-label="Fecha"><?php echo date('d/m/Y', strtotime($bitacora['fecha'])); ?></td>
+                    <td data-label="Grabando Video"><?php echo $bitacora['grabando_video'] === 'Si' ? 'Sí' : 'No'; ?></td>
+                    <td data-label="Días de Video"><?php echo $bitacora['dias_video']; ?></td>
+                    <td data-label="Comentarios"><?php echo htmlspecialchars($bitacora['comentario']); ?></td>
+                    <td data-label="Acciones" class="action-buttons">
+                        <div class="dropdown">
+                            <button onclick="toggleDropdown(<?php echo $bitacora['id']; ?>)" class="btn">Acciones</button>
+                            <div id="dropdown-<?php echo $bitacora['id']; ?>" class="dropdown-content">
+                                <a href="<?php echo site_url('bitacora/detalles/'.$bitacora['id']); ?>">Ver Detalles</a>
+                                <a href="<?php echo site_url('bitacora/editar/'.$bitacora['id']); ?>">Editar</a>
+                                <a href="<?php echo site_url('bitacora/eliminar/'.$bitacora['id']); ?>" onclick="return confirm('¿Estás seguro de que quieres eliminar esta bitácora?');">Eliminar</a>
+                            </div>
+                        </div>
+                        <a href="<?php echo site_url('bitacora/descargar_pdf/'.$bitacora['id']); ?>" class="btn">Descargar PDF</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
-<?php endif; ?>
-
-<?php if ($this->session->flashdata('error')): ?>
-    <div class="alert alert-danger">
-        <?php echo $this->session->flashdata('error'); ?>
-    </div>
-<?php endif; ?>
-
 
     <script>
-        function toggleActions(id) {
-            const actionsDiv = document.getElementById(`actions-${id}`);
-            const isExpanded = actionsDiv.style.display === 'block';
-
-            // Cerrar otros divs de acciones
-            document.querySelectorAll('.actions').forEach(action => {
-                action.style.display = 'none';
-            });
-
-            actionsDiv.style.display = isExpanded ? 'none' : 'block';
+        function toggleDropdown(id) {
+            document.getElementById("dropdown-" + id).classList.toggle("show");
         }
 
-        // Cerrar acciones al hacer clic fuera
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.action-buttons')) {
-                document.querySelectorAll('.actions').forEach(action => {
-                    action.style.display = 'none';
-                });
+        window.onclick = function(event) {
+            if (!event.target.matches('.btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
             }
-        });
+        }
     </script>
 </body>
-
 </html>

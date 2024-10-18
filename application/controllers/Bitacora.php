@@ -118,7 +118,7 @@ class Bitacora extends CI_Controller {
         $pdf->SetMargins(15, 15, 15);
         $pdf->AddPage();
 
-        $html = $this->load->view('bitacora_pdf', ['bitacora' => $bitacora], true);
+        $html = $this->load->view('bitacora/bitacora_pdf', ['bitacora' => $bitacora], true);
         $pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('Bitacora_CTPAT_' . $id . '.pdf', 'D');
     }

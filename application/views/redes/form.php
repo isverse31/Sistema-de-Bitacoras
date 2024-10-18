@@ -28,7 +28,7 @@
         }
 
         label {
-            display: block;
+            display: inline-block;
             margin-top: 10px;
             font-weight: bold;
             color: #333;
@@ -48,8 +48,11 @@
             color: #333;
         }
 
-        input[type="checkbox"] {
+        .custom-checkbox {
+            transform: scale(1.5);
             margin-right: 10px;
+            cursor: pointer;
+            vertical-align: middle;
         }
 
         textarea {
@@ -90,13 +93,20 @@
             width: 20%;
         }
 
-        .politicas label {
-            font-weight: normal;
-            color: #333;
+        .politicas {
+            display: flex;
+            flex-direction: column;
         }
 
-        .politicas input {
-            margin-right: 8px;
+        .politica-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .politica-item label {
+            margin-left: 10px;
+            font-weight: normal;
         }
     </style>
 </head>
@@ -108,7 +118,6 @@
 
         <?php echo form_open('redes/guardar'); ?>
 
-        <!-- Fecha -->
         <div class="form-group">
             <label for="fecha">Fecha:</label>
             <div class="date-container">
@@ -116,7 +125,6 @@
             </div>
         </div>
 
-        <!-- Responsable -->
         <div class="form-group">
             <label for="responsable">Responsable:</label>
             <div class="responsable">
@@ -124,21 +132,36 @@
             </div>
         </div>
 
-        <!-- Políticas evaluadas -->
         <div class="form-group">
             <label><b>Políticas evaluadas:</b></label>
             <div class="politicas">
-            <label for="monitoreo">Monitoreo de red</label><br>
-                <input type="checkbox" name="politicas[]" value="Monitoreo de red" id="monitoreo">
-            <label for="firewall">Actualización del firewall</label><br>
-                <input type="checkbox" name="politicas[]" value="Actualización del firewall" id="firewall">
-            <label for="bitacoras_firewall">Revisar bitácoras del firewall</label>
-                <input type="checkbox" name="politicas[]" value="Revisar bitácoras del firewall" id="bitacoras_firewall">
-                
+                <div class="politica-item">
+                    <input type="checkbox" class="custom-checkbox" name="politicas[]" value="Monitoreo de red" id="monitoreo">
+                    <label for="monitoreo">Monitoreo de red</label>
+                </div>
+                <div class="politica-item">
+                    <input type="checkbox" class="custom-checkbox" name="politicas[]" value="Actualización del firewall" id="firewall">
+                    <label for="firewall">Actualización del firewall</label>
+                </div>
+                <div class="politica-item">
+                    <input type="checkbox" class="custom-checkbox" name="politicas[]" value="Revisar bitácoras del firewall" id="bitacoras_firewall">
+                    <label for="bitacoras_firewall">Revisar bitácoras del firewall</label>
+                </div>
+                <div class="politica-item">
+                    <input type="checkbox" class="custom-checkbox" name="politicas[]" value="Mantener actualizada la base de datos de vulnerabilidades en sistemas" id="vulnerabilidades">
+                    <label for="vulnerabilidades">Mantener actualizada la base de datos de vulnerabilidades en sistemas</label>
+                </div>
+                <div class="politica-item">
+                    <input type="checkbox" class="custom-checkbox" name="politicas[]" value="Monitoreo de puertos y Analizar el tráfico de red" id="monitoreo_puertos">
+                    <label for="monitoreo_puertos">Monitoreo de puertos y Analizar el tráfico de red</label>
+                </div>
+                <div class="politica-item">
+                    <input type="checkbox" class="custom-checkbox" name="politicas[]" value="Monitoreo del uso de sistemas internos y accesos a sitios web externos" id="monitoreo_sistemas">
+                    <label for="monitoreo_sistemas">Monitoreo del uso de sistemas internos y accesos a sitios web externos</label>
+                </div>
             </div>
         </div>
 
-        
         <div class="form-group">
             <label for="estado_cumplimiento">Estado de Cumplimiento:</label>
             <div class="cumplimiento">
@@ -150,7 +173,6 @@
             </div>
         </div>
 
-        <!-- Comentarios -->
         <div class="form-group">
             <label for="comentarios">Comentarios:</label>
             <textarea name="comentarios" id="comentarios" rows="4" placeholder="Añade comentarios adicionales..."></textarea>
@@ -160,6 +182,22 @@
 
         <?php echo form_close(); ?>
     </div>
+
+    <script>
+        // Función para establecer la fecha actual en el campo de fecha
+        function setCurrentDate() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //Enero es 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('fecha').value = today;
+        }
+
+        // Llamar a la función cuando se carga la página
+        window.onload = setCurrentDate;
+    </script>
 
 </body>
 
