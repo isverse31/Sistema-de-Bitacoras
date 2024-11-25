@@ -291,26 +291,22 @@
 
 <script>
         function setCurrentDateAndDays() {
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //Enero es 0!
-            var yyyy = today.getFullYear();
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
 
-            // Establecer la fecha actual
-            var formattedDate = yyyy + '-' + mm + '-' + dd;
+            let formattedDate = yyyy + '-' + mm + '-' + dd;
             document.getElementById('fecha').value = formattedDate;
 
             // Calcular el número de días en el mes actual
-            var daysInMonth = new Date(yyyy, today.getMonth() + 1, 0).getDate();
+            let daysInMonth = new Date(yyyy, today.getMonth() + 1, 0).getDate();
             
-            // Establecer los días del mes en el campo correspondiente
+            // pone los días del mes
             document.getElementById('dias_video').value = daysInMonth;
 
-            // Para depuración: mostrar en la consola
             console.log("Días en el mes actual: " + daysInMonth);
         }
-
-        // Llamar a la función cuando se carga la página
         window.onload = setCurrentDateAndDays;
     </script>
 </body>

@@ -184,12 +184,12 @@
     </div>
 
     <script>
-        // Función para establecer la fecha actual en el campo de fecha
+        //Calcular la fecha
         function setCurrentDate() {
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //Enero es 0!
-            var yyyy = today.getFullYear();
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
 
             today = yyyy + '-' + mm + '-' + dd;
             document.getElementById('fecha').value = today;
